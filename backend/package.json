@@ -1,0 +1,15 @@
+{
+  "name": "connect",
+  "version": "1.0.0",
+  "description": "This the backend api of the Connect app (doubt solving) @SIH",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iamhariharanvj/connect-v1/backend"
+  },
+  "author": "Trustcentric",
+  "license": "ISC"
+}
