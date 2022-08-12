@@ -4,9 +4,13 @@ export const loginUser = async(user,signin,db)=>{
         console.log(response.uuid)
         if (response.uid != null ){
             
-            const user_searched = await db.find(user.email)
+            var user_searched = await db.findStudent(user.email)
+            if(user_searched == null){
+                var user_searched = await db.findTeacher(user.email)
+            }
+            
 
-            if (user_searched != null){
+            else if (user_searched != null){
                 return "User is in the database"
             }
             else{
@@ -29,7 +33,7 @@ export const loginUser = async(user,signin,db)=>{
 export const signupUser = async (user,signup,db) => {
 
     try{
-        if (await db.find(user.email) != null){
+        if ((await db.findStudent(user.email) != null) && (await db.findTeacher(user.email) != null)){
             return "User is already registered"
         }
         else{
@@ -39,8 +43,8 @@ export const signupUser = async (user,signup,db) => {
                 const newUser = user
                 newUser.id = response.uid
                 newUser.email = response.email
-    
-                const res = await db.create(user);
+                const res = user.role == "teacher"?await db.createTeacher(user):await db.createStudent(user)
+
  
                 return res
 

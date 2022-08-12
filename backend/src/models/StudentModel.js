@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 
-
 const studentSchema = new mongoose.Schema({
     id: {
         type:'string',
@@ -24,12 +23,13 @@ const studentSchema = new mongoose.Schema({
         type: 'array'
     },
     level: {
-        type: 'number'
+        type: 'number',
+        default: 1
     }
     
 });
 
-const User = mongoose.model('Users', studentSchema);
+const User = mongoose.model('students', studentSchema);
 
 export {studentSchema};
 export default User

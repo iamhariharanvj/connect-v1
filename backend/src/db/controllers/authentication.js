@@ -1,7 +1,8 @@
-import User from '../../models/userModel.js'
+import StudentDB from '../../models/StudentModel.js'
+import TeacherDB from '../../models/TeacherModel.js'
 
-export const find = async (email) =>{
-        const response = await User.findOne({email: email})
+export const findStudent = async (email) =>{
+        const response = await StudentDB.findOne({email: email})
         .then((user) => user)
         .catch(error => {return error})
 
@@ -9,9 +10,9 @@ export const find = async (email) =>{
 
     }
 
-export const create = async (user) => {
+export const createStudent = async (user) => {
 
-    const response = await User.create(user)
+    const response = await StudentDB.create(user)
         .then((user) => user)
         .catch(error => {return error})
 
@@ -21,4 +22,36 @@ export const create = async (user) => {
 
 }
 
+export const updateStudent = async (user,updatedUser) => {
+    await StudentDB.findOneAndUpdate({id: user.id}, updatedUser, {new: true, upsert: true, setDefaultsOnInsert: true}, function(error, result) {
+        if(error){
+            console.log("Something wrong when updating data!");
+            return error
+        }
+    
+        console.log(result);
+        return result
+    });
+}
+
+export const findTeacher = async (email) =>{
+    const response = await TeacherDB.findOne({email: email})
+    .then((user) => user)
+    .catch(error => {return error})
+
+    return response
+
+}
+
+export const createTeacher = async (user) => {
+
+const response = await TeacherDB.create(user)
+    .then((user) => user)
+    .catch(error => {return error})
+
+    return response
+
+
+
+}
 
