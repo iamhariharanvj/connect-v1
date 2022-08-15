@@ -1,20 +1,21 @@
 export const loginUser = async(user,signin,db)=>{
     try{
         const response = await signin(user.email,user.password);
-        console.log(response.uuid)
+        console.log(response.uid)
         if (response.uid != null ){
             
-            var user_searched = await db.findStudent(user.email)
+            var user_searched = await db.findStudent(response.uid)
             if(user_searched == null){
-                var user_searched = await db.findTeacher(user.email)
+                var user_searched = await db.findTeacher(response.uid)
             }
             
+            
 
-            else if (user_searched != null){
-                return "User is in the database"
+            if (user_searched != null){
+                return user_searched
             }
             else{
-                return "User is not found in the database"
+                 return "User is not found in the database"
             }
         }
         else{
@@ -33,7 +34,7 @@ export const loginUser = async(user,signin,db)=>{
 export const signupUser = async (user,signup,db) => {
 
     try{
-        if ((await db.findStudent(user.email) != null) && (await db.findTeacher(user.email) != null)){
+        if ((await db.findStudent(user.email) != null) || (await db.findTeacher(user.email) != null)){
             return "User is already registered"
         }
         else{
@@ -43,11 +44,15 @@ export const signupUser = async (user,signup,db) => {
                 const newUser = user
                 newUser.id = response.uid
                 newUser.email = response.email
-                const res = user.role == "teacher"?await db.createTeacher(user):await db.createStudent(user)
+                console.log(newUser)
+                const res = user.role == "teacher"?await db.createTeacher(newUser):await db.createStudent(newUser)
 
- 
+                console.log("USER REGISTERED")
                 return res
 
+            }
+            else{
+                return response
             }
         }
     }

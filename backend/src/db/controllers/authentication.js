@@ -1,9 +1,9 @@
 import StudentDB from '../../models/StudentModel.js'
 import TeacherDB from '../../models/TeacherModel.js'
 
-export const findStudent = async (email) =>{
-        const response = await StudentDB.findOne({email: email})
-        .then((user) => user)
+export const findStudent = async (id) =>{
+        const response = await StudentDB.findOne({id: id})
+        .then((user) => {return user})
         .catch(error => {return error})
 
         return response
@@ -19,23 +19,36 @@ export const createStudent = async (user) => {
         return response
 
 
+}
+
+export const isStudent = async (id) =>{
+    const response = await StudentDB.findOne({id: id})
+    .then((user) => {return true})
+    .catch(error => {return false})
+
+    return response
 
 }
 
-export const updateStudent = async (user,updatedUser) => {
-    await StudentDB.findOneAndUpdate({id: user.id}, updatedUser, {new: true, upsert: true, setDefaultsOnInsert: true}, function(error, result) {
-        if(error){
-            console.log("Something wrong when updating data!");
-            return error
-        }
-    
-        console.log(result);
-        return result
-    });
+export const isTeacher = async (id) =>{
+    const response = await TeacherDB.findOne({id: id})
+    .then((user) => {return true})
+    .catch(error => {return false})
+
+    return response
+
 }
 
-export const findTeacher = async (email) =>{
-    const response = await TeacherDB.findOne({email: email})
+export const updateStudent = async (updatedUser) => {
+    const response = await StudentDB.findOneAndUpdate({id: updatedUser.id}, updatedUser, {new: true, upsert: true, setDefaultsOnInsert: true})
+    .then((user) => {return user})
+    .catch(error => {return error})
+
+    return response
+}
+
+export const findTeacher = async (id) =>{
+    const response = await TeacherDB.findOne({id: id})
     .then((user) => user)
     .catch(error => {return error})
 
@@ -53,5 +66,13 @@ const response = await TeacherDB.create(user)
 
 
 
+}
+
+export const updateTeacher = async (updatedUser) => {
+    const response = await TeacherDB.findOneAndUpdate({id: updatedUser.id}, updatedUser, {new: true, upsert: true, setDefaultsOnInsert: true})
+    .then((user) => {return user})
+    .catch(error => {return error})
+    
+    return response
 }
 

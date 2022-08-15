@@ -9,10 +9,11 @@ const signup = async (email,password) =>
     .then((userCredential) => {
         
         const user = userCredential.user;
+
         return user
     })
     .catch((error) => {
- 
+        console.log(error.message)
         return error.message
         
     });

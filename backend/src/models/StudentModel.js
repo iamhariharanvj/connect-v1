@@ -1,3 +1,4 @@
+
 import mongoose from 'mongoose';
 
 const studentSchema = new mongoose.Schema({
@@ -20,8 +21,10 @@ const studentSchema = new mongoose.Schema({
         type: 'string'
     },
     doubts: {
-        type: 'array'
+        type: 'array',
+        default: [],
     },
+    location:{type: 'string'},
     level: {
         type: 'number',
         default: 1

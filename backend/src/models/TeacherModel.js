@@ -17,14 +17,22 @@ const teacherSchema = new mongoose.Schema({
     email: {
         type: 'string',
     },
+    branch: {
+        type: 'string',
+    },
     phone: { 
         type: 'string'
     },
-    doubts: {
+    assignedDoubts: {
         type: 'array'
     },
-    level: {
-        type: 'number'
+    authenticated: {
+        type: 'boolean',
+        default: false
+    },
+    points: {
+        type: 'number',
+        default: 0
     }
     
 });
