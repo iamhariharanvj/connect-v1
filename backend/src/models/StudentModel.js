@@ -14,6 +14,10 @@ const studentSchema = new mongoose.Schema({
     password: {
         type: 'string',
     },
+    role: {
+        type: 'string',
+        default: 'student'
+    },
     email: {
         type: 'string',
     },
@@ -25,6 +29,10 @@ const studentSchema = new mongoose.Schema({
         default: [],
     },
     location:{type: 'string'},
+    isSpecial:{
+        type: 'boolean',
+        default: false
+    },
     level: {
         type: 'number',
         default: 1

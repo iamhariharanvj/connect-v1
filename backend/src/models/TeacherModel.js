@@ -1,12 +1,15 @@
 import mongoose from 'mongoose';
 
-
 const teacherSchema = new mongoose.Schema({
     id: {
         type:'string',
     },
     name: {
         type: 'string',
+    },
+    role: {
+        type: "string",
+        default: 'teacher'
     },
     username: {
         type: 'string',
@@ -17,7 +20,7 @@ const teacherSchema = new mongoose.Schema({
     email: {
         type: 'string',
     },
-    branch: {
+    category: {
         type: 'string',
     },
     phone: { 
